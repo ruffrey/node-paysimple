@@ -2,14 +2,17 @@
 ---
 # PaySimple community library for Node.js
 
-Pull requests welcome. Please write tests and ensure the
-PR conforms to the JSCS and JSHint standards.
+This is an unofficial library.
 
 PaySimple documentation can be found on their website:
 http://developer.paysimple.com/documentation/
 
-The docs are required to know the body parameters required for each
-method.
+Read the [PaySimple docs](http://developer.paysimple.com/documentation/)
+to learn which body parameters required for each method.
+
+
+Pull requests welcome. Please write tests and ensure the
+PR conforms to the JSCS and JSHint standards.
 
 ```bash
 npm run jscs
