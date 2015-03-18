@@ -5,6 +5,12 @@
 Pull requests welcome. Please write tests and ensure the
 PR conforms to the JSCS and JSHint standards.
 
+PaySimple documentation can be found on their website:
+http://developer.paysimple.com/documentation/
+
+The docs are required to know the body parameters required for each
+method.
+
 ```bash
 npm run jscs
 npm run jshint
