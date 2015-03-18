@@ -15,19 +15,9 @@ npm run jshint
 
 ```javascript
 var PaySimple = require('paysimple');
-var pay = new PaySimple()
-            .setAuthHeader('setAuthHeader')
-            .setBasicAuth('username', 'password');
+var pay = new PaySimple({ accessid: 'kasjdflkasjd', key: '023i49sdfkl32' });
 
 pay.setDevmode(); // to use the sandbox endpoint
-
-pay.ping(function (err, body) {
-    if (err) {
-        console.error(err);
-    } else {
-        console.log(body);
-    }
-});
 
 ```
 

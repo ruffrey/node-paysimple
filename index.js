@@ -52,79 +52,32 @@ var PaySimple = function PaySimpleClass(params) {
 
 
     self.customers = {
-        find: function find(params, callback) {
-            var uri = '/accounts/' + params.account_id + '/locations/' +
-                params.location_id + '/customers/' +
-                (params.customer_token || '');
+        findOne: function (params, callback) {
+            var uri = '/customer/' + params.id;
             self._request({
                 uri: uri,
                 method: 'GET',
                 body: params
             }, callback);
         },
-        create: function create(params, callback) {
-            var uri = '/accounts/' + params.account_id + '/customers';
+        find: function (params, callback) {
+            var uri = '/customer';
+            self._request({
+                uri: uri,
+                method: 'GET',
+                body: params
+            }, callback);
+        },
+        create: function (params, callback) {
+            var uri = '/customer';
             self._request({
                 uri: uri,
                 method: 'POST',
                 body: params
             }, callback);
         },
-        update: function update(params, callback) {
-            var uri = '/accounts/' + params.account_id + '/locations/' +
-                params.location_id + '/customers/' +
-                params.customer_token;
-            self._request({
-                uri: uri,
-                method: 'PUT',
-                body: params
-            }, callback);
-        },
-        remove: function remove(params, callback) {
-            var uri = '/accounts/' + params.account_id + '/locations/' +
-                params.location_id + '/customers/' +
-                params.customer_token;
-            self._request({
-                uri: uri,
-                method: 'DELETE'
-            }, callback);
-        }
-    };
-
-
-    self.transactions = {
-        find: function find(params, callback) {
-            var uri = '/accounts/' + params.account_id + '/locations/' +
-                params.location_id + '/transactions/' +
-                (params.transaction_id || '');
-            self._request({
-                uri: uri,
-                method: 'GET',
-                body: params
-            }, callback);
-        },
-        findByCustomer: function find(params, callback) {
-            var uri = '/accounts/' + params.account_id + '/locations/' +
-                params.location_id + '/customers/' +
-                params.customer_token + '/transactions';
-            self._request({
-                uri: uri,
-                method: 'GET',
-                body: params
-            }, callback);
-        },
-        create: function create(params, callback) {
-            var uri = '/accounts/' + params.account_id + '/transactions';
-            self._request({
-                uri: uri,
-                method: 'POST',
-                body: params
-            }, callback);
-        },
-        update: function update(params, callback) {
-            var uri = '/accounts/' + params.account_id + '/locations/' +
-                params.location_id + '/transactions/' +
-                params.transaction_id;
+        update: function (params, callback) {
+            var uri = '/customer';
             self._request({
                 uri: uri,
                 method: 'PUT',
@@ -133,6 +86,117 @@ var PaySimple = function PaySimpleClass(params) {
         }
     };
 
+    self.paymentAccounts = {
+        addCreditCard: function (params, callback) {
+            var uri = '/account/creditcard';
+            self._request({
+                uri: uri,
+                method: 'POST',
+                body: params
+            }, callback);
+        },
+        addAch: function (params, callback) {
+            var uri = '/account/ach';
+            self._request({
+                uri: uri,
+                method: 'POST',
+                body: params
+            }, callback);
+        },
+        updateCreditCard: function (params, callback) {
+            var uri = '/account/creditcard';
+            self._request({
+                uri: uri,
+                method: 'PUT',
+                body: params
+            }, callback);
+        },
+        updateAch: function (params, callback) {
+            var uri = '/account/ach';
+            self._request({
+                uri: uri,
+                method: 'PUT',
+                body: params
+            }, callback);
+        },
+        setDefaultCreditCard: function (params, callback) {
+            var uri = '/customer/' + params.CustomerId + '/' + params.AccountId;
+            self._request({
+                uri: uri,
+                method: 'PUT',
+                body: params
+            }, callback);
+        },
+        setDefaultAch: function (params, callback) {
+            var uri = '/customer/' + params.CustomerId + '/' + params.AccountId;
+            self._request({
+                uri: uri,
+                method: 'PUT',
+                body: params
+            }, callback);
+        },
+        getDefaultCreditCard: function (params, callback) {
+            var uri = '/customer/' + params.CustomerId + '/defaultcreditcard';
+            self._request({
+                uri: uri,
+                method: 'GET',
+                body: params
+            }, callback);
+        },
+        getDefaultAch: function (params, callback) {
+            var uri = '/customer/' + params.CustomerId + '/defaultach';
+            self._request({
+                uri: uri,
+                method: 'GET',
+                body: params
+            }, callback);
+        },
+        list: function (params, callback) {
+            var uri = '/customer/' + params.id + '/accounts';
+            self._request({
+                uri: uri,
+                method: 'GET',
+                body: params
+            }, callback);
+        },
+        listCreditCards: function (params, callback) {
+            var uri = '/customer/' + params.id + '/creditcardaccounts';
+            self._request({
+                uri: uri,
+                method: 'GET',
+                body: params
+            }, callback);
+        },
+        listAchs: function (params, callback) {
+            var uri = '/customer/' + params.id + '/achaccounts';
+            self._request({
+                uri: uri,
+                method: 'GET',
+                body: params
+            }, callback);
+        }
+    };
+
+    self.payments = {
+        /**
+         * Create a payment.
+         *
+         * ```
+         * pay.payments.create({ AccountId: 324323, Amount: 3.49 }, callback);
+         * ```
+         * @param object params
+         * @param number params.AccountId
+         * @param number params.Amount
+         */
+        create: function (params, callback) {
+            var uri = '/payment';
+            self._request({
+                uri: uri,
+                method: 'POST',
+                body: params
+            }, callback);
+        }
+    };
 
     return self;
 };
