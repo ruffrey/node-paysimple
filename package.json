@@ -1,0 +1,32 @@
+{
+  "name": "paysimple",
+  "version": "0.1.2",
+  "description": "Community Node.js API wrapper for the PaySimple API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**/*",
+    "unit": "mocha test/unit",
+    "functional": "mocha test/functional",
+    "jscs": "jscs **/*",
+    "jshint": "jshint index.js test/**/*.js --reporter=.jshintreporter"
+  },
+  "keywords": [
+    "paysimple",
+    "payments",
+    "ach",
+    "echeck",
+    "credit-cards"
+  ],
+  "author": "Jeff Parrish <jeffhparrish@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jscs": "^1.11.3",
+    "jshint": "^2.6.3",
+    "mocha": "^2.1.0",
+    "should": "^5.0.1"
+  },
+  "dependencies": {
+    "debug": "^2.1.2",
+    "request": "^2.53.0"
+  }
+}
