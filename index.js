@@ -9,7 +9,7 @@ var PaySimple = function PaySimpleClass(params) {
 
     var self = this;
 
-    self._base = "https://api.paysimple.com";
+    self._base = "https://api.paysimple.com/v4";
 
     // Authorization: PSSERVER accessid=APIUser1000; timestamp=2012-07-20T20:45:44.0973928Z; signature=WqV47Dddgc6XqBKnQASzZbNU/UZd1tzSrFJJFVv76dw=
     self.accessid = params.accessid || '';
@@ -17,7 +17,7 @@ var PaySimple = function PaySimpleClass(params) {
 
 
     self.setDevmode = function setDevmode() {
-        self._base = 'https://sandbox‐api.paysimple.com';
+        self._base = 'https://sandbox‐api.paysimple.com/v4';
         return self;
     };
 
