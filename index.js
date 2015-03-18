@@ -1,33 +1,23 @@
 'use strict';
 var url = require('url');
 var request = require('request');
+var crypto = require('crypto');
 var debug = require('debug')('pay');
 
-var PaySimple = function PaySimpleClass() {
+var PaySimple = function PaySimpleClass(params) {
+    params = params || {};
 
     var self = this;
 
-    // TODO: once ready for production, add the base url endpoint here.
     self._base = "https://api.paysimple.com";
-    self._authHeader = "";
-    self._basicAuth = {
-        username: '',
-        password: ''
-    };
+
+    // Authorization: PSSERVER accessid=APIUser1000; timestamp=2012-07-20T20:45:44.0973928Z; signature=WqV47Dddgc6XqBKnQASzZbNU/UZd1tzSrFJJFVv76dw=
+    self.accessid = params.accessid || '';
+    self.key = params.key || '';
+
 
     self.setDevmode = function setDevmode() {
         self._base = 'https://sandbox‐api.paysimple.com';
-        return self;
-    };
-
-    self.setAuthHeader = function setAuthHeader(token) {
-        self._authHeader = token;
-        return self;
-    };
-
-    self.setBasicAuth = function setBasicAuth(username, password) {
-        self._basicAuth.username = username;
-        self._basicAuth.password = password;
         return self;
     };
 
@@ -37,11 +27,13 @@ var PaySimple = function PaySimpleClass() {
         if (!opts.body) opts.body = { };
         opts.uri = self._base + opts.uri;
 
-        opts.headers = {
-            'X-Forte-Auth-Account-Id': opts.body.account_id || self._authHeader
-        };
+        var hmac = crypto.createHmac('sha256', self.key).digest('base64');
 
-        opts.auth = self._basicAuth;
+        opts.headers = {
+            Authorization: 'accessid=' + self.accessid + '; '
+                + 'timestamp=' + new Date().toISOString() + '; '
+                + 'signature=' + hmac
+        };
 
         if (opts.query) {
             opts.uri += url.format({ query: opts.query });
