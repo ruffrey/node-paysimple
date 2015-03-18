@@ -11,7 +11,6 @@ var PaySimple = function PaySimpleClass(params) {
 
     self._base = "https://api.paysimple.com/v4";
 
-    // Authorization: PSSERVER accessid=APIUser1000; timestamp=2012-07-20T20:45:44.0973928Z; signature=WqV47Dddgc6XqBKnQASzZbNU/UZd1tzSrFJJFVv76dw=
     self.accessid = params.accessid || '';
     self.key = params.key || '';
 
@@ -30,6 +29,7 @@ var PaySimple = function PaySimpleClass(params) {
         var hmac = crypto.createHmac('sha256', self.key).digest('base64');
 
         opts.headers = {
+            // Authorization: PSSERVER accessid=APIUser1000; timestamp=2012-07-20T20:45:44.0973928Z; signature=WqV47Dddgc6XqBKnQASzZbNU/UZd1tzSrFJJFVv76dw=
             Authorization: 'accessid=' + self.accessid + '; '
                 + 'timestamp=' + new Date().toISOString() + '; '
                 + 'signature=' + hmac
