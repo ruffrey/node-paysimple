@@ -1,6 +1,6 @@
 {
   "name": "paysimple",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Community Node.js API wrapper for the PaySimple API",
   "main": "index.js",
   "scripts": {
