@@ -16,7 +16,7 @@ var PaySimple = function PaySimpleClass(params) {
 
 
     self.setDevmode = function setDevmode() {
-        self._base = 'https://sandbox‐api.paysimple.com/v4';
+        self._base = 'https://sandbox-api.paysimple.com/v4';
         return self;
     };
 
@@ -26,13 +26,14 @@ var PaySimple = function PaySimpleClass(params) {
         if (!opts.body) opts.body = { };
         opts.uri = self._base + opts.uri;
 
-        var hmac = crypto.createHmac('sha256', self.key).digest('base64');
+        var d = new Date().toISOString();
+        var hmac = crypto.createHmac('sha256', self.key).update(d).digest('base64');
 
         opts.headers = {
             // Authorization: PSSERVER accessid=APIUser1000; timestamp=2012-07-20T20:45:44.0973928Z; signature=WqV47Dddgc6XqBKnQASzZbNU/UZd1tzSrFJJFVv76dw=
-            Authorization: 'accessid=' + self.accessid + '; '
-                + 'timestamp=' + new Date().toISOString() + '; '
-                + 'signature=' + hmac
+            Authorization: 'PSSERVER accessid=' + self.accessid + '; '
+            + 'timestamp=' + d + '; '
+            + 'signature=' + hmac
         };
 
         if (opts.query) {
